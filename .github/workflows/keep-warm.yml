@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping backend (kalyan-api)
-        run: curl -sf --max-time 60 https://api.dpbosskalyan.xyz/ || echo "backend ping failed (may have been cold-starting)"
+        run: curl -sf --max-time 60 https://api.dpbosskalyan.xyz || echo "backend ping failed (may have been cold-starting)"
       - name: Ping frontend (kalyan-frontend)
         run: curl -sf --max-time 60 https://admin.dpbosskalyan.xyz/login || echo "frontend ping failed (may have been cold-starting)"
