@@ -1,10 +1,12 @@
-
 name: Keep Render services warm
 
 on:
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
+
+permissions:
+  issues: write
 
 jobs:
   ping:
@@ -13,6 +15,8 @@ jobs:
 
     steps:
       - name: Ping backend (kalyan-api)
+        id: backend
+        continue-on-error: true
         run: |
           for attempt in 1 2 3; do
             echo "Pinging backend - attempt $attempt"
@@ -20,16 +24,20 @@ jobs:
               --connect-timeout 15 \
               --max-time 60 \
               -w "Backend HTTP status: %{http_code}\n" \
-              https://api.dpbosskalyan.xyz :then
+              https://api.dpbosskalyan.xyz; then
               echo "Backend ping completed"
+              echo "status=ok" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             sleep 5
           done
           echo "::error::Backend ping failed"
+          echo "status=fail" >> "$GITHUB_OUTPUT"
           exit 1
 
       - name: Ping frontend (kalyan-frontend)
+        id: frontend
+        continue-on-error: true
         run: |
           for attempt in 1 2 3; do
             echo "Pinging frontend - attempt $attempt"
@@ -39,9 +47,42 @@ jobs:
               -w "Frontend HTTP status: %{http_code}\n" \
               https://admin.dpbosskalyan.xyz/login ; then
               echo "Frontend ping completed"
+              echo "status=ok" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             sleep 5
           done
           echo "::error::Frontend ping failed"
+          echo "status=fail" >> "$GITHUB_OUTPUT"
           exit 1
+
+      - name: Report status via GitHub Issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BACKEND_STATUS: ${{ steps.backend.outputs.status }}
+          FRONTEND_STATUS: ${{ steps.frontend.outputs.status }}
+        run: |
+          set -u
+          ISSUE_TITLE="Keep-warm ping failures"
+          EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" --search "in:title \"$ISSUE_TITLE\" is:open" --json number --jq '.[0].number // empty')
+          NOW=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
+          if [ "$BACKEND_STATUS" = "fail" ] || [ "$FRONTEND_STATUS" = "fail" ]; then
+            BODY=$(printf 'Backend: %s\nFrontend: %s\n\nRun: %s\nTime: %s' \
+              "${BACKEND_STATUS:-unknown}" "${FRONTEND_STATUS:-unknown}" "$RUN_URL" "$NOW")
+            if [ -n "$EXISTING" ]; then
+              gh issue comment "$EXISTING" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+            else
+              gh issue create --repo "$GITHUB_REPOSITORY" --title "$ISSUE_TITLE" --body "$BODY"
+            fi
+          elif [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$GITHUB_REPOSITORY" \
+              --body "Recovered: both backend and frontend responded normally at $NOW. Closing."
+            gh issue close "$EXISTING" --repo "$GITHUB_REPOSITORY"
+          fi
+
+      - name: Fail job if any ping failed
+        if: steps.backend.outcome == 'failure' || steps.frontend.outcome == 'failure'
+        run: exit 1
