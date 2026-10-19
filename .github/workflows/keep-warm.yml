@@ -2,7 +2,9 @@ name: Keep Render services warm
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    # Offset off round numbers (not */5) -- GitHub's cron queue is most congested
+    # at :00/:05/:10 etc, so round schedules get silently dropped more often.
+    - cron: "4-59/7 * * * *"
   workflow_dispatch:
 
 permissions:
