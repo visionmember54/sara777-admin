@@ -1,15 +1,47 @@
+
 name: Keep Render services warm
 
 on:
   schedule:
-    - cron: '*/7 * * * *'
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     steps:
       - name: Ping backend (kalyan-api)
-        run: curl -sf --max-time 60 https://api.dpbosskalyan.xyz || echo "backend ping failed (may have been cold-starting)"
+        run: |
+          for attempt in 1 2 3; do
+            echo "Pinging backend - attempt $attempt"
+            if curl -sS -L -o /dev/null \
+              --connect-timeout 15 \
+              --max-time 60 \
+              -w "Backend HTTP status: %{http_code}\n" \
+              https://api.dpbosskalyan.xyz; then
+              echo "Backend ping completed"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::Backend ping failed"
+          exit 1
+
       - name: Ping frontend (kalyan-frontend)
-        run: curl -sf --max-time 60 https://admin.dpbosskalyan.xyz/login || echo "frontend ping failed (may have been cold-starting)"
+        run: |
+          for attempt in 1 2 3; do
+            echo "Pinging frontend - attempt $attempt"
+            if curl -fsSL -o /dev/null \
+              --connect-timeout 15 \
+              --max-time 60 \
+              -w "Frontend HTTP status: %{http_code}\n" \
+              https://admin.dpbosskalyan.xyz/login; then
+              echo "Frontend ping completed"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::Frontend ping failed"
+          exit 1
