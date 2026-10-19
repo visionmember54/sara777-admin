@@ -20,7 +20,7 @@ jobs:
               --connect-timeout 15 \
               --max-time 60 \
               -w "Backend HTTP status: %{http_code}\n" \
-              https://api.dpbosskalyan.xyz; then
+              https://api.dpbosskalyan.xyz then
               echo "Backend ping completed"
               exit 0
             fi
@@ -37,7 +37,7 @@ jobs:
               --connect-timeout 15 \
               --max-time 60 \
               -w "Frontend HTTP status: %{http_code}\n" \
-              https://admin.dpbosskalyan.xyz/login; then
+              https://admin.dpbosskalyan.xyz/login then
               echo "Frontend ping completed"
               exit 0
             fi
