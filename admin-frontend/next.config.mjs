@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 const isDev = process.env.NODE_ENV !== 'production';
 
 // ponytail: 'unsafe-inline' scripts because Next injects inline bootstrap; move to nonces if stricter CSP is needed.
@@ -29,6 +31,13 @@ const nextConfig = {
   poweredByHeader: false,
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
+  },
+  webpack(config) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(process.cwd()),
+    };
+    return config;
   },
 };
 

@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 /** CSRF guard: a browser-sent Origin, when present, must match our own host. */
 export function isSameOrigin(req: NextRequest): boolean {
