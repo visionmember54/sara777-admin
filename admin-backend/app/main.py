@@ -4,12 +4,15 @@ import logging
 import time
 from datetime import datetime, timezone
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.core.config import get_settings
 from app.core.errors import AppError
+from app.db.base import engine
+from app.db.mongo import sync_from_mongo
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
 request_logger = logging.getLogger("app.requests")
@@ -25,6 +28,14 @@ from app.routers.public import user_auth
 from app.routers.public import app_api
 
 settings = get_settings()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Synchronize database cache from MongoDB Atlas on boot
+    sync_from_mongo(engine)
+    yield
+
 
 TAGS_METADATA = [
     {"name": "dashboard", "description": "Aggregate stats for the admin Overview page."},
@@ -65,11 +76,13 @@ app = FastAPI(
         "contract a future app consumes."
     ),
     openapi_tags=TAGS_METADATA,
+    lifespan=lifespan,
     # Interactive docs enumerate every endpoint; keep them off in production.
     docs_url=None if settings.APP_ENV == "production" else "/docs",
     redoc_url=None if settings.APP_ENV == "production" else "/redoc",
     openapi_url=None if settings.APP_ENV == "production" else "/openapi.json",
 )
+
 
 
 @app.middleware("http")
@@ -147,6 +160,17 @@ async def validation_exception_handler(request, exc: RequestValidationError):
         parts.append(f"{field}: {err.get('msg')}" if field else err.get("msg", "Invalid request"))
     message = "; ".join(parts) or "Invalid request"
     return _error_envelope(status.HTTP_422_UNPROCESSABLE_ENTITY, "VALIDATION_ERROR", message)
+
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    request_logger.exception(f"Unhandled exception on {request.method} {request.url.path}: {exc}")
+    return _error_envelope(
+        status.HTTP_500_INTERNAL_SERVER_ERROR,
+        "INTERNAL_ERROR",
+        "An unexpected error occurred. Please try again in a moment.",
+    )
+
 
 
 app.add_middleware(

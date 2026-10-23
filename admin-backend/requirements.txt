@@ -11,3 +11,8 @@ slowapi==0.1.9
 psycopg2-binary==2.9.9
 firebase-admin==7.1.0
 python-multipart==0.0.9
+pymongo==4.19.0
+dnspython==2.9.0
+tzdata==2026.5
+
+

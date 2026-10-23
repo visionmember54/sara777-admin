@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     DATABASE_URL: str = f"sqlite:///{DATA_DIR / 'bet_admin.db'}"
+    MONGODB_URL: str = "mongodb+srv://visionmember54_db_user:m2tBvaFeikpWS1Cy@cluster0.t3a9ka9.mongodb.net/kalyandb?retryWrites=true&w=majority"
+    MONGODB_DB_NAME: str = "kalyandb"
 
     @field_validator("DATABASE_URL")
     @classmethod
@@ -24,6 +26,7 @@ class Settings(BaseSettings):
         if value.startswith("postgres://"):
             return "postgresql://" + value[len("postgres://"):]
         return value
+
 
     # No default: the app must fail to boot if this isn't set explicitly.
     JWT_SECRET: str
