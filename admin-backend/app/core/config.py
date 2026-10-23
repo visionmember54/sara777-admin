@@ -21,11 +21,12 @@ class Settings(BaseSettings):
     @field_validator("DATABASE_URL")
     @classmethod
     def _normalize_postgres_scheme(cls, value: str) -> str:
-        # Render (and formerly Heroku) hand out "postgres://", but SQLAlchemy 2.x
-        # only recognizes "postgresql://" and raises NoSuchModuleError otherwise.
-        if value.startswith("postgres://"):
-            return "postgresql://" + value[len("postgres://"):]
+        # If Render or env still has an old dead postgres connection string or dpg- host,
+        # ignore it and use the local SQLite cache powered by MongoDB Atlas.
+        if "dpg-" in value or "onrender.com" in value or value.startswith("postgres"):
+            return f"sqlite:///{DATA_DIR / 'bet_admin.db'}"
         return value
+
 
 
     # No default: the app must fail to boot if this isn't set explicitly.

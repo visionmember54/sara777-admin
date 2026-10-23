@@ -27,7 +27,7 @@ export function useLogin() {
         body: JSON.stringify(payload),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.detail || 'Invalid credentials');
+      if (!res.ok) throw new Error(data.detail || data.message || 'Invalid credentials');
       return data.user as AdminUser;
     },
     onSuccess: (user) => {
