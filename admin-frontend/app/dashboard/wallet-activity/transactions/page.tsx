@@ -10,7 +10,7 @@ import Badge from '@/components/ui/Badge';
 import { FormField, Select } from '@/components/ui/Field';
 import Pagination from '@/components/ui/Pagination';
 import { useGlobalCreditLedger } from '@/hooks/useCreditLedger';
-import { ledgerTypeLabel } from '@/lib/ledger';
+import { ledgerTypeLabel } from '../../../../lib/ledger';
 
 const TYPE_TONE: Record<string, 'green' | 'blue' | 'purple' | 'amber' | 'slate'> = {
   grant: 'green',

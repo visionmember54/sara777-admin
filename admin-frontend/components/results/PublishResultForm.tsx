@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import { Table, TBody, Td, Th, THead, Tr } from '@/components/ui/Table';
 import { Icon } from '@/components/layout/icons';
-import { todayLocalIso } from '@/lib/date';
+import { todayLocalIso } from '../../lib/date';
 
 /** Standard Matka rule: ank = last digit of the panna's digit sum. Mirrors the
  * backend's derive_ank_from_panna so the admin sees it the instant they type a

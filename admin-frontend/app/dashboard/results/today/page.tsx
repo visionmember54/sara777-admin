@@ -4,7 +4,7 @@ import PageHeader from '@/components/layout/PageHeader';
 import { Card } from '@/components/ui/Card';
 import ResultsTable from '@/components/results/ResultsTable';
 import { useResults } from '@/hooks/useResults';
-import { todayLocalIso } from '@/lib/date';
+import { todayLocalIso } from '../../../../lib/date';
 
 export default function TodaysResultsPage() {
   const today = todayLocalIso();

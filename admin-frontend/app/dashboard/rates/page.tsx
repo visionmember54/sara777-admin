@@ -13,7 +13,7 @@ import { useRates, useUpdateRateStatus, useCreateRateBulk } from '@/hooks/useRat
 import { useGameTypes } from '@/hooks/useGameTypes';
 import { useMarketsLookup } from '@/hooks/useMarketsLookup';
 import MarketMultiSelect from '@/components/markets/MarketMultiSelect';
-import { todayLocalIso } from '@/lib/date';
+import { todayLocalIso } from '../../../lib/date';
 
 function BulkSetRateModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { markets } = useMarketsLookup();

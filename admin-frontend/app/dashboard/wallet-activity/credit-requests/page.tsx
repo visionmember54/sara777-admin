@@ -1,6 +1,6 @@
 'use client';
 
-import { isHttpUrl } from '@/lib/security';
+import { isHttpUrl } from '../../../../lib/security';
 import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';

@@ -14,7 +14,7 @@ import type { Student } from '@/lib/api/types';
 import { useStudents } from '@/hooks/useStudents';
 import { useCreditHistory, useGrantCredits, useAdjustCredits, useResetCredits } from '@/hooks/useCredits';
 import { usePermissions } from '@/hooks/usePermissions';
-import { ledgerTypeLabel } from '@/lib/ledger';
+import { ledgerTypeLabel } from '../../../../lib/ledger';
 
 export default function LearningCreditsPage() {
   return (

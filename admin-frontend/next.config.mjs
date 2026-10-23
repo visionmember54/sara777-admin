@@ -36,6 +36,10 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(process.cwd()),
+      '@/lib': path.resolve(process.cwd(), 'lib'),
+      '@/components': path.resolve(process.cwd(), 'components'),
+      '@/hooks': path.resolve(process.cwd(), 'hooks'),
+      '@/providers': path.resolve(process.cwd(), 'providers'),
     };
     return config;
   },

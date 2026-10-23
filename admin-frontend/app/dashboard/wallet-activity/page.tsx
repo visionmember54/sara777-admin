@@ -11,7 +11,7 @@ import { Icon } from '@/components/layout/icons';
 import { useDashboard } from '@/hooks/useDashboard';
 import { useCreditRequests } from '@/hooks/useCreditRequests';
 import { useGlobalCreditLedger } from '@/hooks/useCreditLedger';
-import { ledgerTypeLabel } from '@/lib/ledger';
+import { ledgerTypeLabel } from '../../../lib/ledger';
 
 const TYPE_TONE: Record<string, 'green' | 'blue' | 'purple' | 'amber' | 'slate'> = {
   grant: 'green',

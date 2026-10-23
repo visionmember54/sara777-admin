@@ -6,7 +6,7 @@ import { LoadingState, EmptyState } from '@/components/ui/States';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
 import { useGlobalCreditLedger } from '@/hooks/useCreditLedger';
-import { ledgerTypeLabel } from '@/lib/ledger';
+import { ledgerTypeLabel } from '../../lib/ledger';
 
 export default function WalletTransactionsOverview() {
   const { data, isLoading, isError, error } = useGlobalCreditLedger({ limit: 50 });

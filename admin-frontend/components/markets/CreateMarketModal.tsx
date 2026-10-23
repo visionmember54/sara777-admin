@@ -5,7 +5,7 @@ import Modal from '@/components/ui/Modal';
 import Button from '@/components/ui/Button';
 import { FormField, Input, Select, Textarea } from '@/components/ui/Field';
 import { api } from '@/lib/api/client';
-import { todayLocalIso } from '@/lib/date';
+import { todayLocalIso } from '../../lib/date';
 import type { GameTypeConfig, Rate } from '@/lib/api/types';
 import { useMarketCategories } from '@/hooks/useMarketCategories';
 import { useCreateMarket } from '@/hooks/useMarkets';

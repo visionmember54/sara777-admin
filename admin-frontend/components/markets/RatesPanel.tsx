@@ -9,7 +9,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
 import { FormField, Input, Select } from '@/components/ui/Field';
-import { todayLocalIso } from '@/lib/date';
+import { todayLocalIso } from '../../lib/date';
 
 export default function RatesPanel({ marketId, slotId }: { marketId: number; slotId?: number | null }) {
   const { data: rates, isLoading, isError, error } = useRates(marketId);

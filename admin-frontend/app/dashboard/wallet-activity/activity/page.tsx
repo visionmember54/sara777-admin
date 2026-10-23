@@ -11,7 +11,7 @@ import { useStudents } from '@/hooks/useStudents';
 import { useCreditHistory } from '@/hooks/useCredits';
 import { useSimulations } from '@/hooks/useSimulations';
 import { useMarketsLookup } from '@/hooks/useMarketsLookup';
-import { ledgerTypeLabel } from '@/lib/ledger';
+import { ledgerTypeLabel } from '../../../../lib/ledger';
 
 type Feed =
   | { kind: 'credit'; id: string; at: string; label: string; detail: string }

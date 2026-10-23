@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { getBackendUrl } from '@/lib/backend-url';
-import { isSameOrigin } from '@/lib/security';
+import { getBackendUrl } from '../../../../lib/backend-url';
+import { isSameOrigin } from '../../../../lib/security';
 
 const BACKEND_URL = getBackendUrl();
 const SESSION_COOKIE = process.env.SESSION_COOKIE_NAME || 'kalyan_admin_session';

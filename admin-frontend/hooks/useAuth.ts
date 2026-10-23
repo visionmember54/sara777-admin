@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api/client';
 import { AdminUser } from '@/lib/api/types';
-import { safeRedirectPath } from '@/lib/security';
+import { safeRedirectPath } from '../lib/security';
 
 export function useCurrentAdmin() {
   return useQuery({
