@@ -13,10 +13,13 @@ logger = logging.getLogger("app.mongo")
 _mongo_client: MongoClient | None = None
 
 
-def get_mongo_client() -> MongoClient:
+def get_mongo_client() -> MongoClient | None:
     global _mongo_client
     if _mongo_client is None:
         settings = get_settings()
+        if not settings.MONGODB_URL:
+            logger.warning("MONGODB_URL is not set in environment or .env")
+            return None
         _mongo_client = MongoClient(settings.MONGODB_URL, serverSelectionTimeoutMS=10000)
     return _mongo_client
 
@@ -24,6 +27,8 @@ def get_mongo_client() -> MongoClient:
 def get_mongo_db():
     settings = get_settings()
     client = get_mongo_client()
+    if client is None:
+        return None
     return client[settings.MONGODB_DB_NAME]
 
 
@@ -68,6 +73,9 @@ def sync_from_mongo(engine) -> None:
         Base.metadata.create_all(bind=engine)
         
         db = get_mongo_db()
+        if db is None:
+            logger.info("MONGODB_URL not provided; skipping initial MongoDB sync.")
+            return
         # Test connection ping
         db.command("ping")
         logger.info("Connected to MongoDB Atlas successfully.")
