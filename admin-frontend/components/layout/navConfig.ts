@@ -13,111 +13,131 @@ export interface NavSection {
 }
 
 export const NAV_SECTIONS: NavSection[] = [
-  { title: null, icon: 'home', items: [{ label: 'Dashboard', href: '/dashboard' }] },
+  // 1. Dashboards (Direct link)
+  { title: null, icon: 'home', items: [{ label: 'Dashboards', href: '/dashboard' }] },
+
+  // 2. Declare Result (Direct link - Top Priority Operation)
+  { title: null, icon: 'check', items: [{ label: 'Declare Result', href: '/dashboard/results/publish' }] },
+
+  // 3. Starline Management (Dropdown)
   {
-    title: 'Markets',
-    icon: 'market',
+    title: 'Starline Management',
+    icon: 'clock',
     items: [
-      { label: 'All Markets', href: '/dashboard/markets' },
-      { label: 'Main / Matka Markets', href: '/dashboard/markets/matka' },
-      { label: 'Starline', href: '/dashboard/markets/starline' },
-      { label: 'Gali–Disawar', href: '/dashboard/markets/gali-disawar' },
-      { label: 'Custom Markets', href: '/dashboard/markets/custom' },
+      { label: 'Game Name', href: '/dashboard/markets/starline' },
+      { label: 'Game Rates', href: '/dashboard/rates' },
+      { label: 'Bid History', href: '/dashboard/simulations/history?market=starline' },
+      { label: 'Declare Result', href: '/dashboard/results/publish?market=starline' },
+      { label: 'Result History', href: '/dashboard/results/history?market=starline' },
+      { label: 'Game Sell Report', href: '/dashboard/reports/game-statistics?market=starline' },
+      { label: 'Game Winning Report', href: '/dashboard/reports/simulation-statistics?market=starline' },
+      { label: 'Winning Prediction', href: '/dashboard/reports/number-frequency?market=starline' },
     ],
   },
+
+  // 4. Gali Disawar (Dropdown)
   {
-    title: 'Configuration',
-    icon: 'sliders',
+    title: 'Gali Disswar',
+    icon: 'calendar',
     items: [
-      { label: 'Single', href: '/dashboard/game-config/SINGLE' },
-      { label: 'Jodi', href: '/dashboard/game-config/JODI' },
-      { label: 'Single Panna', href: '/dashboard/game-config/SINGLE_PANNA' },
-      { label: 'Double Panna', href: '/dashboard/game-config/DOUBLE_PANNA' },
-      { label: 'Triple Panna', href: '/dashboard/game-config/TRIPLE_PANNA' },
-      { label: 'Half Sangam', href: '/dashboard/game-config/HALF_SANGAM' },
-      { label: 'Full Sangam', href: '/dashboard/game-config/FULL_SANGAM' },
-      { label: 'Open / Close', href: '/dashboard/game-config/open-close' },
-      { label: 'Bulk Mode', href: '/dashboard/game-config/bulk-mode' },
+      { label: 'Game Name', href: '/dashboard/markets/gali-disawar' },
+      { label: 'Game Rates', href: '/dashboard/rates' },
+      { label: 'Bid History', href: '/dashboard/simulations/history?market=gali-disawar' },
+      { label: 'Declare Result', href: '/dashboard/results/publish?market=gali-disawar' },
+      { label: 'Result History', href: '/dashboard/results/history?market=gali-disawar' },
+      { label: 'Sell Report', href: '/dashboard/reports/game-statistics?market=gali-disawar' },
+      { label: 'Winning Report', href: '/dashboard/reports/simulation-statistics?market=gali-disawar' },
+      { label: 'Winning Prediction', href: '/dashboard/reports/number-frequency?market=gali-disawar' },
     ],
   },
-  { title: 'Schedule', icon: 'calendar', items: [{ label: 'Market Schedule & Cutoffs', href: '/dashboard/schedule' }] },
+
+  // 5. Report Management (Dropdown)
   {
-    title: 'Results',
-    icon: 'check',
-    items: [
-      { label: "Today's Results", href: '/dashboard/results/today' },
-      { label: 'Pending', href: '/dashboard/results/pending' },
-      { label: 'Publish Result', href: '/dashboard/results/publish' },
-      { label: 'Historical Results', href: '/dashboard/results/history' },
-    ],
-  },
-  {
-    title: 'Game Numbers',
+    title: 'Report Management',
     icon: 'chart',
-    items: [{ label: 'Panel Chart (All Markets)', href: '/dashboard/game-numbers/panel-chart' }],
-  },
-  { title: 'Rates', icon: 'percent', items: [{ label: 'Simulated Rates', href: '/dashboard/rates' }] },
-  {
-    title: 'Simulations',
-    icon: 'play',
     items: [
-      { label: 'All Simulations', href: '/dashboard/simulations' },
-      { label: 'Bulk Batches', href: '/dashboard/simulations/batches' },
-      { label: 'User History', href: '/dashboard/simulations/history' },
+      { label: 'Users Bid History', href: '/dashboard/simulations/history' },
+      { label: 'Customer Sell Report', href: '/dashboard/reports/game-statistics' },
+      { label: 'Winning Report', href: '/dashboard/reports/simulation-statistics' },
+      { label: 'Transfer Point Report', href: '/dashboard/wallet-activity/transactions' },
+      { label: 'Bid Win Report', href: '/dashboard/simulations' },
+      { label: 'Withdraw Report', href: '/dashboard/wallet-activity/credit-requests' },
+      { label: 'Auto Deposit History', href: '/dashboard/wallet-activity/activity' },
     ],
   },
+
+  // 6. Winning Prediction (Direct link)
+  { title: null, icon: 'sliders', items: [{ label: 'Winning Prediction', href: '/dashboard/reports/number-frequency' }] },
+
+  // 7. Wallet Management (Dropdown)
   {
-    title: 'Users',
-    icon: 'users',
-    items: [{ label: 'All Users', href: '/dashboard/students' }],
-  },
-  {
-    title: 'Wallet Activity',
+    title: 'Wallet Management',
     icon: 'coin',
     items: [
-      { label: 'Overview', href: '/dashboard/wallet-activity' },
-      { label: 'Payment Settings', href: '/dashboard/wallet-activity/payment-settings' },
-      { label: 'Credit Requests', href: '/dashboard/wallet-activity/credit-requests' },
-      { label: 'Learning Credits', href: '/dashboard/wallet-activity/credits' },
-      { label: 'All Transactions', href: '/dashboard/wallet-activity/transactions' },
-      { label: 'User Activity', href: '/dashboard/wallet-activity/activity' },
+      { label: 'Fund Request', href: '/dashboard/wallet-activity/credit-requests' },
+      { label: 'Withdraw Request', href: '/dashboard/wallet-activity/credit-requests' },
+      { label: 'Amount Added By Admin', href: '/dashboard/wallet-activity/credits' },
+      { label: 'Add Fund (User Wallet)', href: '/dashboard/wallet-activity/credits' },
+      { label: 'Bid Revert', href: '/dashboard/wallet-activity/activity' },
+      { label: 'Autopay Transaction', href: '/dashboard/wallet-activity/transactions' },
     ],
   },
+
+  // 8. User Management (Direct link)
+  { title: null, icon: 'users', items: [{ label: 'User Management', href: '/dashboard/students' }] },
+
+  // 9. Games Management (Dropdown - Main Matka Markets)
   {
-    title: 'Content',
+    title: 'Games Management',
+    icon: 'market',
+    items: [
+      { label: 'Game Name', href: '/dashboard/markets/matka' },
+      { label: 'All Markets', href: '/dashboard/markets' },
+      { label: 'Market Schedule', href: '/dashboard/schedule' },
+      { label: 'Game Rates', href: '/dashboard/rates' },
+    ],
+  },
+
+  // 10. Game & Numbers (Dropdown)
+  {
+    title: 'Game & Numbers',
+    icon: 'sliders',
+    items: [
+      { label: 'Single Digit', href: '/dashboard/game-config/SINGLE' },
+      { label: 'Jodi Digit', href: '/dashboard/game-config/JODI' },
+      { label: 'Single Pana', href: '/dashboard/game-config/SINGLE_PANNA' },
+      { label: 'Double Pana', href: '/dashboard/game-config/DOUBLE_PANNA' },
+      { label: 'Tripple Pana', href: '/dashboard/game-config/TRIPLE_PANNA' },
+      { label: 'Half Sangam', href: '/dashboard/game-config/HALF_SANGAM' },
+      { label: 'Full Sangam', href: '/dashboard/game-config/FULL_SANGAM' },
+      { label: 'Panel Chart', href: '/dashboard/game-numbers/panel-chart' },
+    ],
+  },
+
+  // 11. Notice Management (Dropdown)
+  {
+    title: 'Notice Management',
     icon: 'file',
     items: [
-      { label: 'Homepage', href: '/dashboard/content/homepage' },
-      { label: 'Banners', href: '/dashboard/content/banners' },
-      { label: 'Scrolling Messages', href: '/dashboard/content/scrolling' },
-      { label: 'Game Guides', href: '/dashboard/content/educational' },
+      { label: 'Notice Management', href: '/dashboard/content/scrolling' },
+      { label: 'Send Notification', href: '/dashboard/content/banners' },
     ],
   },
+
+  // 12. Users Query (Direct link)
+  { title: null, icon: 'support', items: [{ label: 'Users Query', href: '/dashboard/support/queries' }] },
+
+  // 13. Settings (Dropdown)
   {
-    title: 'Support',
-    icon: 'support',
-    items: [
-      { label: 'Support Queries', href: '/dashboard/support/queries' },
-      { label: 'Contact & WhatsApp', href: '/dashboard/support/contact' },
-      { label: 'FAQ', href: '/dashboard/support/faq' },
-    ],
-  },
-  {
-    title: 'Reports',
-    icon: 'chart',
-    items: [
-      { label: 'Simulation Statistics', permission: 'reports.view', href: '/dashboard/reports/simulation-statistics' },
-      { label: 'Game Statistics', permission: 'reports.view', href: '/dashboard/reports/game-statistics' },
-      { label: 'Number Frequency', permission: 'reports.view', href: '/dashboard/reports/number-frequency' },
-      { label: 'Historical Charts', permission: 'reports.view', href: '/dashboard/reports/historical-charts' },
-    ],
-  },
-  {
-    title: 'System',
+    title: 'Settings',
     icon: 'cog',
     items: [
-      { label: 'Settings', href: '/dashboard/system/settings' },
-      { label: 'Audit Logs', href: '/dashboard/system/audit-logs', permission: 'audit_logs.view' },
+      { label: 'Main Settings', href: '/dashboard/system/settings' },
+      { label: 'Contact Settings', href: '/dashboard/support/contact' },
+      { label: 'Clear Data', href: '/dashboard/system/audit-logs' },
+      { label: 'Slider Images', href: '/dashboard/content/banners' },
+      { label: 'QR Code Images', href: '/dashboard/wallet-activity/payment-settings' },
+      { label: 'How To Play', href: '/dashboard/content/educational' },
       { label: 'Admin Users', href: '/dashboard/system/admin-users', permission: 'admins.manage' },
       { label: 'Roles & Permissions', href: '/dashboard/system/roles' },
     ],

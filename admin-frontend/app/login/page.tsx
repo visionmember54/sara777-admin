@@ -35,11 +35,11 @@ export default function LoginPage() {
 
       <div className="relative w-full max-w-sm">
         <div className="mb-7 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 text-2xl font-bold text-white shadow-glow">
-            K
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-2xl font-bold text-white shadow-glow">
+            S
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-white">Kalyan Admin</h1>
-          <p className="mt-1.5 text-xs text-brand-200/80">Operations console for markets, results, and virtual credits</p>
+          <h1 className="text-xl font-bold tracking-tight text-white">SARA 777 Admin</h1>
+          <p className="mt-1.5 text-xs text-amber-200/80">Operations console for markets, results, and user management</p>
         </div>
 
         <form onSubmit={handleSubmit} className="rounded-2xl bg-white/95 p-6 shadow-2xl ring-1 ring-white/10 backdrop-blur">
