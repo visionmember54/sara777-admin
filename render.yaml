@@ -12,7 +12,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.9
       - key: MONGODB_URL
-        value: mongodb+srv://visionmember54_db_user:m2tBvaFeikpWS1Cy@cluster0.t3a9ka9.mongodb.net/kalyandb?retryWrites=true&w=majority
+        sync: false
       - key: MONGODB_DB_NAME
         value: kalyandb
       - key: JWT_SECRET
@@ -27,16 +27,3 @@ services:
         value: HS256
       - key: JWT_TTL_MIN
         value: 480
-
-  # 2. Next.js Frontend Service
-  - type: web
-    name: kalyan-frontend
-    env: node
-    region: oregon
-    plan: free
-    rootDir: admin-frontend
-    buildCommand: npm install && npm run build
-    startCommand: npm run start
-    envVars:
-      - key: BACKEND_URL
-        value: kalyan-api-gotl.onrender.com

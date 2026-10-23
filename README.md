@@ -28,37 +28,18 @@ The admin panel follows the exact 13-section operational workflow:
 
 ---
 
-## 🚀 Deployment Guide
+## Deployment
 
-### 1. Deploy Frontend to Vercel
+The frontend and backend are separate repositories.
 
-1. Open [vercel.com/new](https://vercel.com/new) in your browser.
-2. Import repository: `https://github.com/visionmember54/sara777-admin`.
-3. Configure project:
-   - **Framework Preset**: `Next.js`
-   - **Root Directory**: `admin-frontend`
-4. Add Environment Variables:
-   - `BACKEND_URL`: `https://kalyan-api-gotl.onrender.com` (or your Render URL)
-   - `SESSION_COOKIE_NAME`: `sara777_admin_session`
-5. Click **Deploy**.
+- Frontend (Vercel): `https://github.com/visionmember54/kalyan-millan`
+  - Root directory: `admin-frontend`
+  - `BACKEND_URL`: `https://api.dpbosskalyan.xyz`
+- Backend (Render service `kalyan-api`): `https://github.com/visionmember54/kalyan-api`
+  - Root directory: empty, because the repository root is the API
+  - Database: MongoDB Atlas (`MONGODB_URL`, database name `kalyandb`)
 
----
-
-### 2. Deploy Backend to Render
-
-1. Open [dashboard.render.com](https://dashboard.render.com/).
-2. Create a **New Web Service** connected to `visionmember54/sara777-admin` (or use Blueprint with `render.yaml`).
-3. Settings:
-   - **Environment**: `Python 3`
-   - **Root Directory**: `admin-backend`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'`
-4. Key Environment Variables:
-   - `MONGODB_URL`: `mongodb+srv://visionmember54_db_user:m2tBvaFeikpWS1Cy@cluster0.t3a9ka9.mongodb.net/kalyandb?retryWrites=true&w=majority`
-   - `MONGODB_DB_NAME`: `kalyandb`
-   - `APP_ENV`: `production`
-   - `JWT_SECRET`: *(auto-generated or set custom string)*
-   - `CORS_ORIGINS`: Your Vercel frontend URL (e.g. `https://sara777-admin.vercel.app`)
+Set `MONGODB_URL`, `JWT_SECRET`, and `CORS_ORIGINS` in the Render dashboard. Do not commit those values. `CORS_ORIGINS` must be the Vercel site origin.
 
 ---
 
