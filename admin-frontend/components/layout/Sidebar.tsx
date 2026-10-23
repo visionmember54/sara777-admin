@@ -34,11 +34,11 @@ export default function Sidebar({
       <div className={`flex h-16 items-center border-b border-white/10 ${collapsed ? 'justify-center px-2' : 'justify-between px-5'}`}>
         {!collapsed && (
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 text-sm font-bold text-white shadow-glow">
-              S
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 text-sm font-bold text-white shadow-glow">
+              K
             </div>
             <div>
-              <p className="text-sm font-bold leading-tight text-white">SARA 777 Admin</p>
+              <p className="text-sm font-bold leading-tight text-white">Kalyan Admin</p>
               <p className="mt-0.5 text-[11px] font-medium uppercase tracking-wide text-slate-500">Operations Console</p>
             </div>
           </div>

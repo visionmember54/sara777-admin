@@ -1,7 +1,7 @@
 services:
   # 1. FastAPI Backend Service (powered by MongoDB Atlas)
   - type: web
-    name: sara777-api
+    name: kalyan-api
     env: python
     region: oregon
     plan: free

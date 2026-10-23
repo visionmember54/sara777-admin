@@ -6,8 +6,8 @@ import QueryProvider from '@/providers/QueryProvider';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'SARA 777 Admin',
-  description: 'Operations console for SARA 777: markets, results, bids, rates, wallet, and users.',
+  title: 'Kalyan Admin',
+  description: 'Operations console for users, markets, simulations, results, and virtual credits.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

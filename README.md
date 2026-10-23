@@ -1,6 +1,6 @@
-# SARA 777 Admin Operations Console & API
+# Kalyan Simulator Admin Operations Console & API
 
-This repository houses the complete **Admin Operations Console & API** for the **SARA 777** platform, built to faithfully reflect the structure, navigation, and workflows of `sara777satta.com/admin/`.
+This repository houses the complete **Admin Operations Console & API** for the **Kalyan Simulator** platform, incorporating the comprehensive 13-section operational structure and workflows from the live Sara 777 control panel.
 
 It is a high-performance monorepo consisting of:
 - **`admin-frontend/`**: Node.js 20+ / Next.js 14 Web Operations Console.
